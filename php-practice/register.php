@@ -46,7 +46,7 @@
 						</div>
 					</form>
 					 <?php createUser();
-					 header("Location: admin-login.php");
+					 //header("Location: admin-login.php");
 					 ?>
 					</div>
 				</div>

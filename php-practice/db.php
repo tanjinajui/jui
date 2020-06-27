@@ -1,5 +1,5 @@
 <?php
-// Connected database with our project
+//Connected database with our project
 // $db['db_host'] = "localhost";
 // $db['db_user'] = "root";
 // $db['db_pass'] = "";
