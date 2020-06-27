@@ -70,7 +70,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Blog Categories:</h6>
             <a class="collapse-item" href="all-categories.php">All Categories</a>
-            <a class="collapse-item" href="">Add New Category</a>
           </div>
         </div>
       </li>
