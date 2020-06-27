@@ -24,31 +24,52 @@
                   <table class="table table-striped">
 					  <thead class="thead-dark">
 					    <tr>
-					      <th scope="col">#</th>
-					      <th scope="col">First</th>
-					      <th scope="col">Last</th>
-					      <th scope="col">Handle</th>
+					      <th scope="col">Sl.</th>
+					      <th scope="col">Title</th>
+					      <th scope="col">Author</th>
+					      <th scope="col">Post Category</th>
+					      <th scope="col">Post Status</th>
+					      <th scope="col">Post Date</th>
+					      <th scope="col">Action</th>
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>Mark</td>
-					      <td>Otto</td>
-					      <td>@mdo</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">2</th>
-					      <td>Jacob</td>
-					      <td>Thornton</td>
-					      <td>@fat</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">3</th>
-					      <td>Larry</td>
-					      <td>the Bird</td>
-					      <td>@twitter</td>
-					    </tr>
+
+					  	<?php
+					  	//View All Posts Codes Are Here---
+					  		$query = "SELECT * FROM posts";
+					  		$select_all_post = mysqli_query($connect, $query);
+					  		$i= 0;
+					  		while ($row = mysqli_fetch_assoc($select_all_post)) {
+					  			$post_id    	    = $row['post_id'];
+					  			$post_title 	    = $row['post_title'];
+					  			$post_description   = $row['post_description'];
+					  			$post_author 	    = $row['post_author'];
+					  			$post_thumb 	    = $row['post_thumb'];
+					  			$post_category   = $row['post_category'];
+					  			$post_tags 		    = $row['post_tags'];
+					  			$post_status        = $row['post_id'];
+					  			$post_date          = $row['post_date'];
+					  			$i++;
+					  		
+					  	  echo '<tr>';
+					      echo '<th scope="row">'. $i .'</th>';
+					      echo '<td>' . $post_title . '</td>';
+					      echo '<td>' . $post_author . '</td>';
+					      echo '<td>' . $post_category . '</td>';
+					      echo '<td>' . $post_status . '</td>';
+					      echo '<td>' . $post_date . '</td>';
+					      echo '<td> 
+					      	<div class="btn-group">
+					      					<a href="" class="btn btn-primary btn-sm">Update</a>
+					      					<a href="" class="btn btn-danger btn-sm">Delete</a>	
+					      				</div>
+					       </td>';
+					      echo '</tr>';
+
+					  		}
+					  	?>
+					   
 					  </tbody>
 				 </table>
                   <!-- Blog Post List Table Start -->

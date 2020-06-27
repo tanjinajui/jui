@@ -30,14 +30,14 @@ function view_all_category(){
           	$cat_serial= 0;
 			while ($row=mysqli_fetch_assoc($select_categories))
 			{
-              	$cat_serial++;
+        $cat_serial++;
 				$cat_id   = $row['cat_id'];
 				$cat_name = $row['cat_name'];
 				?>
 		<tr>
 			<th scope="row"><?php echo $cat_serial; ?></th>
 			<td><?php echo $cat_name; ?></td>
-            <td><?php echo $cat_id; ?></td>
+      <!--<td><?php //echo $cat_id; ?></td>-->
 			<td>
 			<div class="btn-group">
 				<a href="all-categories.php?update=<?php echo $cat_id;?>" class="btn btn-primary btn-sm">Update</a>

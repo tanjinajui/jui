@@ -85,7 +85,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Posts:</h6>
             <a class="collapse-item" href="all-posts.php">All Blog Posts</a>
-            <a class="collapse-item" href="">Add New Post</a>
+            <a class="collapse-item" href="add-post.php">Add New Post</a>
           </div>
         </div>
       </li>
