@@ -1,4 +1,5 @@
 <?php include "../includes/db.php"; ?>
+<?php include "functions.php"; ?>
 <!-- Server Reload/Redirect- Function Start-->
 <?php
   ob_start();
