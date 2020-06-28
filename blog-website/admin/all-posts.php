@@ -28,7 +28,6 @@
 					      <th scope="col">Title</th>
 					      <th scope="col">Author</th>
 					      <th scope="col">Post Category</th>
-					      <th scope="col">Post Status</th>
 					      <th scope="col">Post Date</th>
 					      <th scope="col">Action</th>
 					    </tr>
@@ -48,25 +47,23 @@
 					  			$post_thumb 	    = $row['post_thumb'];
 					  			$post_category   = $row['post_category'];
 					  			$post_tags 		    = $row['post_tags'];
-					  			$post_status        = $row['post_id'];
 					  			$post_date          = $row['post_date'];
 					  			$i++;
-					  		
-					  	  echo '<tr>';
-					      echo '<th scope="row">'. $i .'</th>';
-					      echo '<td>' . $post_title . '</td>';
-					      echo '<td>' . $post_author . '</td>';
-					      echo '<td>' . $post_category . '</td>';
-					      echo '<td>' . $post_status . '</td>';
-					      echo '<td>' . $post_date . '</td>';
-					      echo '<td> 
+					  		?>
+					  	  <tr>
+					      <th scope="row"><?php echo $i ?></th>
+					      <td><?php echo $post_title ?></td>
+					      <td><?php echo $post_author ?></td>
+					      <td><?php echo $post_category ?></td>
+					      <td><?php echo $post_date ?></td>
+					      <td> 
 					      	<div class="btn-group">
-					      					<a href="" class="btn btn-primary btn-sm">Update</a>
+					      					<a href="update-post.php?update=<?php echo $post_id; ?>" class="btn btn-primary btn-sm">Update</a>
 					      					<a href="" class="btn btn-danger btn-sm">Delete</a>	
 					      				</div>
-					       </td>';
-					      echo '</tr>';
-
+					       </td>
+					      </tr>
+					      <?php
 					  		}
 					  	?>
 					   
