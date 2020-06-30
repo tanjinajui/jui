@@ -23,6 +23,7 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
 
 </head>
 
@@ -114,8 +115,9 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">All Users:</h6>
-            <a class="collapse-item" href="all-users.php">All Users</a>
-            <a class="collapse-item" href="">Add New User</a>
+            <a class="collapse-item" href="users.php?do=Manage">All Users</a>
+            <a class="collapse-item" href="users.php?do=Add">Add New User</a>
+            <a class="collapse-item" href="users.php?do=Insert">Insert Page</a>
             
           </div>
         </div>

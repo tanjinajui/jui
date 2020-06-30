@@ -1,0 +1,25 @@
+/* Admin Template Custom Design */
+.user-avater{
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	border: 2px solid #eee;
+}
+.action-bar ul{
+	padding: 0;
+}
+.action-bar ul li{
+	list-style: none;
+	display: inline;
+	margin: 5px;
+	cursor: pointer;
+}
+.action-bar ul li .fa-eye{
+	color: #24e650;
+}
+.action-bar ul li .fa-edit{
+	color: #f1cc16;
+}
+.action-bar ul li .fa-trash{
+	color: #ff7a89;
+}

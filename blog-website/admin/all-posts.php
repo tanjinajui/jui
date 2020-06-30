@@ -18,8 +18,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">All Blog Posts</h6>
                 </div>
                 <!-- Card Section Body-->
-                <div class="card-body">
-                
+                <div class="card-body">               
                   <!-- Blog Post List Table Start -->
                   <table class="table table-striped">
 					  <thead class="thead-dark">
@@ -45,7 +44,7 @@
 					  			$post_description   = $row['post_description'];
 					  			$post_author 	    = $row['post_author'];
 					  			$post_thumb 	    = $row['post_thumb'];
-					  			$post_category   = $row['post_category'];
+					  			$post_category      = $row['post_category'];
 					  			$post_tags 		    = $row['post_tags'];
 					  			$post_date          = $row['post_date'];
 					  			$i++;
@@ -59,7 +58,7 @@
 					      <td> 
 					      	<div class="btn-group">
 					      					<a href="update-post.php?update=<?php echo $post_id; ?>" class="btn btn-primary btn-sm">Update</a>
-					      					<a href="" class="btn btn-danger btn-sm">Delete</a>	
+					      					<a href="all-posts.php?delete=<?php echo $post_id; ?>" class="btn btn-danger btn-sm">Delete</a>	
 					      				</div>
 					       </td>
 					      </tr>
@@ -71,11 +70,35 @@
 				 </table>
                   <!-- Blog Post List Table Start -->
                 </div>
+                <!-- Card Section Body-->
               </div>
           	</div>
         </div>
         <!-- /.container-fluid -->
 
+        <?php 
+        	if (isset($_GET['delete'])) {
+        		$delete_post_id = $_GET['delete'];
+
+        		//delete image query
+        		$delete_img_query = "SELECT * FROM posts WHERE post_id = '$delete_post_id'";
+        		$delete_img = mysqli_query($connect, $delete_img_query);
+        		while ($row = mysqli_fetch_assoc($delete_img)) {
+        			$thumbnail = $row ['post_thumb'];
+        		}
+
+        		//Delete Image php Function
+        		unlink("img/posts_thumbnail/". $thumbnail);
+        		//Database post delele
+        		$query = "DELETE FROM posts WHERE post_id = $delete_post_id";
+        		$delete_posts = mysqli_query($connect, $query);
+        		if (!$delete_posts) {
+			        die ("Query Failed!" . mysqli_error($connect));
+			      }else{
+			        header("Location: all-posts.php");
+			      } 
+        	}
+        ?>
       </div>
       <!-- End of Main Content -->
 <?php include "includes/footer.php";?>
