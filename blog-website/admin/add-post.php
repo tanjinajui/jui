@@ -45,22 +45,22 @@
                  	<!-- Post-Category Field-->
                  	<div class="form-group">
                  		<label for = "post-category">Post Category</label>
-                 		<select class="form-control" name="post-category">
-                 			<option>Please Select the Post Category</option>
-                 			<?php
-                 				$query = "SELECT * FROM categories";
-                 				$all_category = mysqli_query($connect, $query);
-                 				while ($row = mysqli_fetch_assoc($all_category)) {
-                 					$cat_id = $row['cat_id'];
-                 					$cat_name = $row['cat_name'];
-                 					?>
-                 					<option value="<?php echo $cat_id;?>"><?php echo $cat_name;?></option>
-                 			<?php		
-                 				
-                 				}
+                 		<select class="form-control" name="post_category">
+                      <option>Please Select the Post Category</option>
+                      <?php
+                        $query = "SELECT * FROM categories";
+                        $all_category = mysqli_query($connect, $query);
+                        while ($row = mysqli_fetch_assoc($all_category)) {
+                          $cat_id = $row['cat_id'];
+                          $cat_name = $row['cat_name'];
+                          ?>
+                          <option value="<?php echo $cat_id;?>"><?php echo $cat_name;?></option>
+                      <?php   
+                        
+                        }
 
-                 			?>
-                 		</select>
+                      ?>
+                    </select>
                  	</div>
                  	<!-- Post-Tags Field-->
                  	<div class="form-group">
@@ -91,7 +91,7 @@
         		$post_image 	  = $_FILES['image'];
         		$post_image_name  = $_FILES['image']['name'];
         		$post_image_size  = $_FILES['image']['size'];
-        		$post_image_temp  = $_FILES['image']['temp_name'];
+        		$post_image_temp  = $_FILES['image']['tmp_name'];
         		$post_image_type  = $_FILES['image']['type'];
 
         		$post_category    = $_POST['post_category'];
@@ -128,6 +128,7 @@
 		    		{
 		    			header("Location: all-posts.php");
 		    		}
+                //echo $query;
 		        }
         		
 

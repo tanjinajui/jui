@@ -71,12 +71,96 @@
 					       </td>					      
 					      <td> 
 					      	<div class="action-bar">
-					      					<ul>
-					      						<li><i class="fa fa fa-eye"></i></li>
-					      						<li><a href="users.php?do=Edit&update=<?php echo $user_id; ?>"><i class="fa fa fa-edit"></i></a></li>
-					      						<li><i class="fa fa fa-trash"></i></li>
-					      					</ul>
-					      				</div>
+					      		<ul>
+					      			<li><i class="fa fa-eye" data-toggle="modal" data-target="#userProfile<?php echo $user_id;?>"></i></li>
+					      			<li><a href="users.php?do=Edit&update=<?php echo $user_id; ?>"><i class="fa fa-edit"></i></a></li>
+					      			<li><i class="fa fa-trash" data-toggle="modal" data-target="#exampleModal<?php echo $user_id;?>"></i></li>
+					      		</ul>
+					      	</div>
+					      	<!-- Users Profile confirmation Modal -->
+							<div class="modal fade" id="userProfile<?php echo $user_id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">							      
+							      <div class="modal-body">
+							        <div class="container">
+							        	<div class="row">
+							        		<div class="col-md-12 text-center">
+							        			<img src="img/users_avater/<?php echo $user_avater; ?>" class="user-profile-modal" >
+							        		</div>
+							        		<div class="col-md-12">
+							        			<table class="table table-striped table-bordered">								  
+												  <tbody>
+													  <tr>
+													      <th scope="col">Full Name</th>		
+													      <td><?php echo $name; ?></td>	      
+													  </tr>
+													  <tr>
+													      <th scope="row">Username</th>	
+													      <td><?php echo $username; ?></td>		      
+													  </tr>	
+													  <tr>
+													      <th scope="row">Email Address</th>
+													      <td><?php echo $user_email; ?></td>			      
+													  </tr>	
+													  <tr>
+													      <th scope="row">Phone No.</th>
+													      <td><?php echo $user_phone; ?></td>			      
+													  </tr>	
+													  <tr>
+													      <th scope="row">User Role</th>
+													      <td>
+													      	<?php 
+													      		if ($user_role == 0) {
+													      			echo '<p class = "">Administrator</p>';
+													      		}
+													      		else if ($user_role == 1) {
+													      			echo '<p class = "">Editor</p>';
+													      		}
+													      		else{
+													      			echo '<p class = "">Suspended</p>';
+													      		}
+													       ?>
+													      </td>			      
+													  </tr>
+													  <tr>
+													      <th scope="row">Join Date</th>
+													      <td><?php echo $join_date; ?></td>			      
+													  </tr>														    
+												  </tbody>
+												</table>
+							        		</div>
+							        	</div>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+							</div>
+					      	<!-- Delete Users confirmation Modal -->
+							<div class="modal fade" id="exampleModal<?php echo $user_id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLabel">Do you want to user?</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							        <div class="container">
+							        	<div class="row">
+							        		<div class="col-md-12 text-center">
+							        			<a href="users.php?do=Delete&delete=<?php echo $user_id; ?>" class= "btn btn-danger">Yes</a>
+							        		<button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+							       
+							        		</div>
+							        	</div>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+							</div>
 					       </td>
 					      </tr>
 					      <?php
@@ -87,12 +171,12 @@
                   <!-- All User Table End -->
                 </div>
                 <div class="add-btn-box">
-          			<a href="users.php?do=Add" class="btn btn-primary">Add New User</a>
+          			<a href="users.php?do=Add" class="btn btn-primary btn-flat btn-sm">Add New User</a>
           		</div>
                 <!-- Card Section Body-->
-          		</div>
+          </div>
           		
-          		</div>
+        </div>
     <?php	
        }
         else if ($do == "Add") {?>
@@ -173,7 +257,7 @@
 		                </div>
 		            </div>
 		        <!-- Card Section Body-->
-		        </div>
+		        </div>		        
 		    </div>          	         	
 		    <!-- Insert into the data for database -->
           	<?php
@@ -195,7 +279,7 @@
                           $avater      = $_FILES['avater'];
                           $avater_name 	= $_FILES['avater'] ['name'];
                           $avater_size 	= $_FILES['avater'] ['size'];
-                           $avater_type = $_FILES['avater'] ['type'];
+                          $avater_type = $_FILES['avater'] ['type'];
                           $avater_tmp  = $_FILES['avater'] ['tmp_name'];             
 
                           $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
@@ -351,18 +435,19 @@
 		                		$update_user_id = $_POST['user_id'];
 		                		//echo $update_user_id ;
 		                  $name         = $_POST['name'];
-                          $username     = $_POST['username'];                        
+                          $username     = $_POST['username'];
+                          $password     = $_POST['password'];
+                          $re_password  = $_POST['re_password'];
                           $email        = $_POST['email'];
                           $phone        = $_POST['phone'];
                           $user_address = $_POST['user_address'];
                           $user_role    = $_POST['user_role'];
-                          $password 	  = $row['password'];
-					  	  $re_password  = $row['re_password'];
-                          $avater       = $_FILES['avater'];
+                          
+                          $avater      = $_FILES['avater'];
                           $avater_name 	= $_FILES['avater'] ['name'];
                           $avater_size 	= $_FILES['avater'] ['size'];
-                          $avater_type  = $_FILES['avater'] ['type'];
-                          $avater_tmp   = $_FILES['avater'] ['tmp_name'];             
+                          $avater_type = $_FILES['avater'] ['type'];
+                          $avater_tmp  = $_FILES['avater'] ['tmp_name'];             
 
                           $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
                           $avaterExtension        = strtolower(end(explode('.', $avater_name)));
@@ -385,16 +470,21 @@
                           }
                           if (empty($formErrors)) {                         	
                             $avater = rand(0,200000) . '_' . $avater_name;
+                            //Image upload Function
                             move_uploaded_file($avater_tmp, "img\users_avater\\" . $avater);
-                            // Delete the users existing image from folder--                            
-                            $delete_img_query = "SELECT * FROM users WHERE user_id = '$user_id' ";
+                            //Delete the existing image to the folder
+                            $delete_img_query = "SELECT * FROM users WHERE user_id = '$update_user_id'";
                             $delete_img = mysqli_query($connect, $delete_img_query);
                             while ($row = mysqli_fetch_assoc($delete_img)) {
-                            	$user_avater  = $row['user_avater'];
+                            	$existing_avater = $row ['user_avater'];
+
                             }
-                            unlink("img/users_avater/". $user_avater);
-                            $query = "UPDATE users SET name = '$name', username = '$username', user_email = '$email', user_phone = '$phone', user_address = '$user_address', user_avater = '$avater', user_role = '$user_role' WHERE user_id = '$update_user_id' "; 
-                            $update_user = mysqli_query($connect,$query);                
+                            //Image Delete function
+                            unlink("img/users_avater/". $existing_avater);
+                            $query = "UPDATE users SET name = '$name', username = '$username', user_email = '$email', user_phone = '$phone', user_address = '$user_address', user_avater = '$avater', user_role = '$user_role' WHERE user_id = '$update_user_id' ";
+                            //echo $query;
+                            
+                            $update_user = mysqli_query($connect,$query);
                             if (!$update_user) {
                               die("Query Failed!" . mysqli_error($connect));;
                             }
@@ -402,6 +492,7 @@
                               header("Location: users.php?do=Manage");
                             }
                           }
+		                  
 		                	}
 		                	?>
 		                </div>
@@ -412,7 +503,26 @@
           	<?php	
           	}
           	else if ($do == "Delete") {
-          		echo "This is the user delete page";
+          		if (isset($_GET['delete'])) {
+          			$delete_user_id = $_GET['delete'];
+          			//echo $delete_user_id;
+          			//Delete the existing image to the folder
+                    $query = "SELECT * FROM users WHERE user_id = '$delete_user_id'";
+                    $delete_user = mysqli_query($connect, $query);
+                    while ($row = mysqli_fetch_assoc($delete_user)) {
+                         $existing_avater = $row ['user_avater'];
+
+                        }
+                    unlink("img/users_avater/". $existing_avater);
+                    $delete_query = "DELETE FROM users WHERE user_id = '$delete_user_id'";
+                    $delete_done = mysqli_query($connect,$delete_query);
+                            if (!$delete_done) {
+                              die("Query Failed!" . mysqli_error($connect));;
+                            }
+                            else{
+                              header("Location: users.php?do=Manage");
+                            }
+          		}
           	}
           ?>
 

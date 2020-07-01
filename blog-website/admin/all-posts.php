@@ -50,11 +50,11 @@
 					  			$i++;
 					  		?>
 					  	  <tr>
-					      <th scope="row"><?php echo $i ?></th>
-					      <td><?php echo $post_title ?></td>
-					      <td><?php echo $post_author ?></td>
-					      <td><?php echo $post_category ?></td>
-					      <td><?php echo $post_date ?></td>
+					      <th scope="row"><?php echo $i; ?></th>
+					      <td><?php echo $post_title; ?></td>
+					      <td><?php echo $post_author; ?></td>
+					      <td><?php echo $post_category; ?></td>
+					      <td><?php echo $post_date; ?></td>
 					      <td> 
 					      	<div class="btn-group">
 					      					<a href="update-post.php?update=<?php echo $post_id; ?>" class="btn btn-primary btn-sm">Update</a>
