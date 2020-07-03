@@ -1,8 +1,15 @@
-<?php include "../includes/db.php"; ?>
-<?php include "functions.php"; ?>
 <!-- Server Reload/Redirect- Function Start-->
 <?php
   ob_start();
+  session_start();
+  //database include--
+  include "../includes/db.php";
+  //function page include--
+  include "functions.php";
+  if (empty($_SESSION['user_email'])) 
+  {
+    header("Location: index.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +44,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -49,7 +56,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -293,12 +300,25 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+
+                <?php
+                //Registration after default profile image set code
+                if (!empty($_SESSION['user_avater'])) 
+                {?>
+                  <img class="img-profile rounded-circle" src="img/users_avater/<?php echo $_SESSION['user_avater']; ?>">
+               <?php }
+                else
+                {?>
+                  <img class="img-profile rounded-circle" src="img/users_avater/default.png">
+               <?php }
+                ?>
+
+                
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="profile.php">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -311,7 +331,7 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="logout.php">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>

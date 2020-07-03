@@ -24,6 +24,7 @@
 					      <th scope="col">Email Id</th>
 					      <th scope="col">Phone</th>
 					      <th scope="col">Role</th>
+					      <th scope="col">Status</th>
 					      <th scope="col">Action</th>
 					    </tr>
 					  </thead>
@@ -45,12 +46,26 @@
 					  			$user_address = $row['user_address'];
 					  			$user_avater  = $row['user_avater'];
 					  			$user_role    = $row['user_role'];
+					  			$is_active    = $row['is_active'];
 					  			$join_date    = $row['join_date'];
 					  			$i++;
 					  		?>
 					  	  <tr>
 					      <th scope="row"><?php echo $i ?></th>
-					      <td><img src="img/users_avater/<?php echo $user_avater;?>" class="user-avater"></td>
+					      <td>
+					      	<?php
+					      	//Registration after default profile image set code
+					      		if (!empty($user_avater)) 
+					      		{ ?>
+					      			<img src="img/users_avater/<?php echo $user_avater;?>" class="user-avater">
+					      		<?php }
+					      		else
+					      		{ ?>
+					      			<img src="img/users_avater/default.png" class="user-avater">
+					      		<?php }
+					      	?>
+					      	
+					      </td>
 					      <td><?php echo $name ?></td>
 					      <td><?php echo $username ?></td>				      
 					      <td><?php echo $user_email ?></td>
@@ -66,8 +81,21 @@
 					      		else{
 					      			echo '<span class = "badge badge-danger">Suspended</span>';
 					      		}
-					       ?>
-					       	
+					       ?>					       	
+					       </td>
+					       <td>
+					      	<?php 
+					      	//Registration after user active & inactive set code
+					      		if ($is_active == 0) {
+					      			echo '<span class = "badge badge-danger">Inactive</span>';
+					      		}
+					      		else if ($is_active == 1) {
+					      			echo '<span class = "badge badge-success">Active</span>';
+					      		}
+					      		else{
+					      			echo '<span class = "badge badge-danger">Suspended</span>';
+					      		}
+					       ?>					       	
 					       </td>					      
 					      <td> 
 					      	<div class="action-bar">
@@ -194,6 +222,8 @@
                  	<div class="container">
                  		<div class="row">
                  			<div class="col-md-6">
+                 				<!-- Post Method-->
+                 				<!-- Form Part Start-->
                  				<form action="?do=Insert" method="POST" enctype="multipart/form-data">
 			                  	<!-- Name Field-->
 			                  		<div class="form-group">
@@ -251,21 +281,25 @@
 					            		<input type="submit" name="submit" value="Add New User" class="btn btn-primary btn-flat btn-sm">
 							  			</div>
 									</form>
-					       		<!-- Add User Form End --> 
+									<!-- Form Part End-->
 		                 		</div>
 		                	</div>
 		                </div>
 		            </div>
-		        <!-- Card Section Body-->
-		        </div>		        
+		            <!-- Add User Form Start -->
+		        
+		        </div>	
+		        <!-- Card Section Body-->	        
 		    </div>          	         	
 		    <!-- Insert into the data for database -->
+		    <!-- Post Method-->
           	<?php
           	}else if ($do == "Insert") {?>
 
           		<div class="row">
           			<div class="col-md-12">
           				<?php
+          				//Server Request Method
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           $name         = $_POST['name'];
                           $username     = $_POST['username'];
@@ -323,6 +357,7 @@
           	<?php	
           	}
           	//To Read all the information of an user
+          	//Get Method
           	else if ($do == "Edit") {
           		if (isset($_GET['update'])) {
           			$the_user_id = $_GET['update'];
@@ -341,6 +376,7 @@
 					  			$user_address = $row['user_address'];
 					  			$user_avater  = $row['user_avater'];
 					  			$user_role    = $row['user_role'];
+					  			$is_active    = $row['is_active'];
 					  			$join_date    = $row['join_date'];
 					  		//echo $user_id;?>		
 		<div class="row">
@@ -357,6 +393,7 @@
                  	<div class="container">
                  		<div class="row">
                  			<div class="col-md-6">
+                 				<!-- Form Part Start -->
                  				<form action="?do=Update" method="POST" enctype="multipart/form-data">
 			                  	<!-- Name Field-->
 			                  		<div class="form-group">
@@ -395,6 +432,15 @@
 										<option value="1" <?php if ($user_role == 1){echo 'selected';}?>>Editor</option>
 										</select>
 										</div>
+										<!-- User Status Field-->
+										<div class="form-group">
+										<label for = "is_active">User Status</label>
+										<select class="form-control" name="is_active">
+										<option>Please Select User Status</option>
+										<option value="0" <?php if ($is_active == 0){echo 'selected';}?>>Inactive</option>
+										<option value="1" <?php if ($is_active == 1){echo 'selected';}?>>Active</option>
+										</select>
+										</div>
 										<!-- User Avater Field-->
 										<div class="form-group">
 										<label for = "user_avater">Profile Picture </label><br>
@@ -407,13 +453,14 @@
 					            		<input type="submit" name="submit" value="Update user Info" class="btn btn-primary btn-flat btn-sm">
 							  			</div>
 									</form>
-					       		<!-- Add User Form End --> 
+									<!-- Form Part End -->					       		
 		                 		</div>
 		                	</div>
 		                </div>
 		            </div>
-		        <!-- Card Section Body-->
+		            <!-- Add User Form End --> 		        
 		        </div>
+		        <!-- Card Section Body-->
 		    </div>
 				<?php
           			}
@@ -442,6 +489,7 @@
                           $phone        = $_POST['phone'];
                           $user_address = $_POST['user_address'];
                           $user_role    = $_POST['user_role'];
+                          $is_active    = $_POST['is_active'];
                           
                           $avater      = $_FILES['avater'];
                           $avater_name 	= $_FILES['avater'] ['name'];
@@ -468,29 +516,45 @@
                           foreach ($formErrors as $error) {
                           	echo '<div class = "alert alert-danger">' . $error . '</div>';
                           }
-                          if (empty($formErrors)) {                         	
-                            $avater = rand(0,200000) . '_' . $avater_name;
-                            //Image upload Function
-                            move_uploaded_file($avater_tmp, "img\users_avater\\" . $avater);
-                            //Delete the existing image to the folder
-                            $delete_img_query = "SELECT * FROM users WHERE user_id = '$update_user_id'";
-                            $delete_img = mysqli_query($connect, $delete_img_query);
-                            while ($row = mysqli_fetch_assoc($delete_img)) {
-                            	$existing_avater = $row ['user_avater'];
+                          if (empty($formErrors)) { 
+                          	if (!empty($avater_name)) 
+                          	{
+                          		$avater = rand(0,200000) . '_' . $avater_name;
+	                            //Image upload Function
+	                            move_uploaded_file($avater_tmp, "img\users_avater\\" . $avater);
+	                            //Delete the existing image to the folder
+	                            $delete_img_query = "SELECT * FROM users WHERE user_id = '$update_user_id'";
+	                            $delete_img = mysqli_query($connect, $delete_img_query);
+	                            while ($row = mysqli_fetch_assoc($delete_img)) {
+	                            	$existing_avater = $row ['user_avater'];
+	                            }
+	                            //Image Delete function
+	                            unlink("img/users_avater/". $existing_avater);
+	                            $query = "UPDATE users SET name = '$name', username = '$username', user_email = '$email', user_phone = '$phone', user_address = '$user_address', user_avater = '$avater', user_role = '$user_role', is_active = '$is_active' WHERE user_id = '$update_user_id' ";
+	                            //echo $query;
+	                            $update_user = mysqli_query($connect,$query);
+		                            $update_user = mysqli_query($connect,$query);
+	                            if (!$update_user) {
+	                              die("Query Failed!" . mysqli_error($connect));;
+	                            }
+	                            else{
+	                              header("Location: users.php?do=Manage");
+	                            }
+                          	}
+                          	else
+                          	{
+	                            $query = "UPDATE users SET name = '$name', username = '$username', user_email = '$email', user_phone = '$phone', user_address = '$user_address', user_role = '$user_role', is_active = '$is_active' WHERE user_id = '$update_user_id' ";
+	                            //echo $query;
+	                            $update_user = mysqli_query($connect,$query);
+	                            if (!$update_user) {
+	                              die("Query Failed!" . mysqli_error($connect));;
+	                            }
+	                            else{
+	                              header("Location: users.php?do=Manage");
+	                            }
+                          	}
 
-                            }
-                            //Image Delete function
-                            unlink("img/users_avater/". $existing_avater);
-                            $query = "UPDATE users SET name = '$name', username = '$username', user_email = '$email', user_phone = '$phone', user_address = '$user_address', user_avater = '$avater', user_role = '$user_role' WHERE user_id = '$update_user_id' ";
-                            //echo $query;
                             
-                            $update_user = mysqli_query($connect,$query);
-                            if (!$update_user) {
-                              die("Query Failed!" . mysqli_error($connect));;
-                            }
-                            else{
-                              header("Location: users.php?do=Manage");
-                            }
                           }
 		                  
 		                	}

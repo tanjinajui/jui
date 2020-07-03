@@ -33,3 +33,11 @@
 	border-radius: 50%;
 	margin-bottom: 50px;
 }
+.notifications {
+	color: #f6c23e;
+	text-decoration: none;
+}
+.notifications a{
+	color: #f6c23e!important;
+	text-decoration: none;
+}

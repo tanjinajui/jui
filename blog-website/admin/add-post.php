@@ -32,11 +32,6 @@
                  		<label for = "description">Description</label>
                  		<textarea name="post_description" class="form-control" rows="7"></textarea>
                  	</div>
-                 	<!-- Post-Author Field-->
-                 	<div class="form-group">
-                 		<label for = "post-author">Post Author</label>
-                 		<input type="text" name="post_author" class="form-control" autocomplete="off">
-                 	</div>
                  	<!-- Post-Thumbnail Field-->
                  	<div class="form-group">
                  		<label for = "post-thumbnail">Post Thumbnail</label>
@@ -86,16 +81,15 @@
         	if (isset($_POST['add_post'])) {
         		$post_title       = $_POST['post_title'];
         		$post_description = $_POST['post_description'];
-        		$post_author  	  = $_POST['post_author'];
+        		$post_author  	  = $_SESSION['name'];
+                $post_category    = $_POST['post_category'];
+                $post_tags        = $_POST['post_tags'];
         		//image upload--
         		$post_image 	  = $_FILES['image'];
         		$post_image_name  = $_FILES['image']['name'];
         		$post_image_size  = $_FILES['image']['size'];
         		$post_image_temp  = $_FILES['image']['tmp_name'];
         		$post_image_type  = $_FILES['image']['type'];
-
-        		$post_category    = $_POST['post_category'];
-        		$post_tags        = $_POST['post_tags'];
 
         		$postAllowedExtension = array("jpg", "jpeg", "png");
         		$postExtension        = strtolower(end(explode('.', $post_image_name)));

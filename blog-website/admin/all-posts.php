@@ -53,7 +53,18 @@
 					      <th scope="row"><?php echo $i; ?></th>
 					      <td><?php echo $post_title; ?></td>
 					      <td><?php echo $post_author; ?></td>
-					      <td><?php echo $post_category; ?></td>
+					      <td>
+					      	<?php 
+					      	//All_Post page category name show code
+					      	 	$query = "SELECT * FROM categories WHERE cat_id = '$post_category'";
+					      	 	$all_category = mysqli_query($connect, $query);
+					      	 	while ($row = mysqli_fetch_assoc($all_category)) {
+					      	 		$cat_id = $row ['cat_id'];
+					      	 		$cat_name = $row ['cat_name'];
+					      	 	}
+					      	 	echo $cat_name;
+					      	 ?>	 	
+					      </td>
 					      <td><?php echo $post_date; ?></td>
 					      <td> 
 					      	<div class="btn-group">

@@ -46,12 +46,7 @@
                     <div class="form-group">
                         <label for = "description">Description</label>
                         <textarea name="post_description" class="form-control" rows="7"><?php echo $post_description; ?></textarea>
-                    </div>
-                    <!-- Post-Author Field-->
-                    <div class="form-group">
-                        <label for = "post-author">Post Author</label>
-                        <input type="text" name="post_author" class="form-control" value="<?php echo $post_author; ?>" autocomplete="off">
-                    </div>
+                    </div>                   
                     <!-- Post-Thumbnail Field-->
                     <div class="form-group">
                         <label for = "post-thumbnail">Post Thumbnail</label><br>
@@ -64,17 +59,16 @@
                         <select class="form-control" name="post_category">
                       <option>Please Select the Post Category</option>
                       <?php
+                      //Update page category name show code
                         $query = "SELECT * FROM categories";
                         $all_category = mysqli_query($connect, $query);
                         while ($row = mysqli_fetch_assoc($all_category)) {
                           $cat_id = $row['cat_id'];
                           $cat_name = $row['cat_name'];
                           ?>
-                          <option value="<?php echo $cat_id;?>"><?php echo $cat_name;?></option>
-                      <?php   
-                        
+                          <option value="<?php echo $cat_id;?>"<?php if ($post_category == $cat_id) {echo 'selected';}?>><?php echo $cat_name;?></option>
+                      <?php                          
                         }
-
                       ?>
                     </select>
                     </div>
@@ -108,17 +102,17 @@
         	if (isset($_POST['update_post'])) {
         		$post_title       = mysqli_real_escape_string($connect, $_POST['post_title']);
         		$post_description = mysqli_real_escape_string($connect, $_POST['post_description']);
-        		$post_author  	  = $_POST['post_author'];
+        		
         		//image upload--
                 $post_image       = $_FILES['image'];
-        		$post_image_name  = $_FILES['image']['name'];
+        		    $post_image_name  = $_FILES['image']['name'];
                 $post_image_size  = $_FILES['image']['size'];
-        		$post_image_temp  = $_FILES['image']['tmp_name'];
+        		    $post_image_temp  = $_FILES['image']['tmp_name'];
                 $post_image_type  = $_FILES['image']['type'];
 
 
-        		$post_category    = $_POST['post_category'];
-        		$post_tags        = $_POST['post_tags'];
+        		    $post_category    = $_POST['post_category'];
+        		    $post_tags        = $_POST['post_tags'];
 
                 $postAllowedExtension = array("jpg", "jpeg", "png");
                 $postExtension = strtolower(end(explode('.', $post_image_name)));
@@ -140,20 +134,40 @@
                           }
                           if (!empty($post_image_name)) {
                               $post_image = rand(0,100000) . '_' . $post_image_name;
+                              move_uploaded_file($post_image_temp, "img/posts_thumbnail/$post_image");
+                              $delete_img_query = "SELECT * FROM posts WHERE post_id = '$post_id'";
+                              $delete_img = mysqli_query($connect, $delete_img_query);
+                              while ($row = mysqli_fetch_assoc($delete_img))
+                              {
+                               $thumbnail = $row['post_thumb'];
+                              }
+                              //Image Delete function
+                              unlink("img/posts_thumbnail/". $thumbnail);
+                              $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description',   post_category = '$post_category', post_thumb = '$post_image', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
+                               //echo $query; 
+                             $update_post = mysqli_query($connect, $query);
+                                if(!$update_post)
+                                {
+                                  die("Query Failed!" . mysqli_error($connect));
+                                }else
+                                {
+                                  header("Location: all-posts.php");
+                                }
                           }
-        		move_uploaded_file($post_image_temp, "img/posts_thumbnail/$post_image");
-
-        		$query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description', post_author = '$post_author',  post_category = '$post_category', post_thumb = '$post_image', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
-
-          //           echo $query; 
-        		$update_post = mysqli_query($connect, $query);
-            		if(!$update_post)
-            		{
-            			die("Query Failed!" . mysqli_error($connect));
-            		}else
-            		{
-            			header("Location: all-posts.php");
-            		}
+                          else
+                          {
+                            $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description',   post_category = '$post_category', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
+                               //echo $query; 
+                             $update_post = mysqli_query($connect, $query);
+                                if(!$update_post)
+                                {
+                                  die("Query Failed!" . mysqli_error($connect));
+                                }else
+                                {
+                                  header("Location: all-posts.php");
+                                }
+                          }
+                      		
 
         	}
         ?>
