@@ -124,12 +124,26 @@
             <h6 class="collapse-header">All Users:</h6>
             <a class="collapse-item" href="users.php?do=Manage">All Users</a>
             <a class="collapse-item" href="users.php?do=Add">Add New User</a>
-            <a class="collapse-item" href="users.php?do=Insert">Insert Page</a>
             
           </div>
         </div>
       </li>
 
+      <!-- Nav Item - Website Option Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings" aria-expanded="true" aria-controls="settings">
+          <i class="fas fa-user-friends"></i>
+          <span>Website Settings</span>
+        </a>
+        <div id="settings" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Website Settings:</h6>
+            <a class="collapse-item" href="settings.php">Logo and Favicon</a>
+            <a class="collapse-item" href="socialmedia.php">Socail Media</a>
+            
+          </div>
+        </div>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
