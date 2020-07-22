@@ -132,43 +132,44 @@
                           foreach ($formErrors as $error) {
                             echo '<div class = "alert alert-danger">' . $error . '</div>';
                           }
-                          if (!empty($post_image_name)) {
-                              $post_image = rand(0,100000) . '_' . $post_image_name;
+                           if (empty($formErrors)) { 
+                            if (!empty($post_image_name)) 
+                            {
+                              $post_image = rand(0,200000) . '_' . $post_image_name;
+                              //Image upload Function
                               move_uploaded_file($post_image_temp, "img/posts_thumbnail/$post_image");
+                              //Delete the existing image to the folder
                               $delete_img_query = "SELECT * FROM posts WHERE post_id = '$post_id'";
                               $delete_img = mysqli_query($connect, $delete_img_query);
-                              while ($row = mysqli_fetch_assoc($delete_img))
-                              {
-                               $thumbnail = $row['post_thumb'];
+                              while ($row = mysqli_fetch_assoc($delete_img)) {
+                                $post_thumb         = $row['post_thumb'];
                               }
                               //Image Delete function
-                              unlink("img/posts_thumbnail/". $thumbnail);
-                              $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description',   post_category = '$post_category', post_thumb = '$post_image', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
-                               //echo $query; 
-                             $update_post = mysqli_query($connect, $query);
-                                if(!$update_post)
-                                {
-                                  die("Query Failed!" . mysqli_error($connect));
-                                }else
-                                {
-                                  header("Location: all-posts.php");
-                                }
+                              unlink("img/posts_thumbnail/". $post_thumb);
+                              $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description', post_category = '$post_category', post_thumb = '$post_image', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
+                              //echo $query;
+                              $update_post = mysqli_query($connect,$query);
+                              if (!$update_post) {
+                                die("Query Failed!" . mysqli_error($connect));
+                              }
+                              else{
+                                header("Location: all-posts.php");
+                              }
+                            }
+                            else
+                            {
+                             $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description', post_category = '$post_category', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
+                              //echo $query;
+                              $update_post = mysqli_query($connect,$query);
+                              if (!$update_post) {
+                                die("Query Failed!" . mysqli_error($connect));
+                              }
+                              else{
+                                header("Location: all-posts.php");
+                              }
+                          
                           }
-                          else
-                          {
-                            $query = "UPDATE posts SET post_title = '$post_title', post_description = '$post_description',   post_category = '$post_category', post_tags = '$post_tags' WHERE post_id = '$post_id' ";
-                               //echo $query; 
-                             $update_post = mysqli_query($connect, $query);
-                                if(!$update_post)
-                                {
-                                  die("Query Failed!" . mysqli_error($connect));
-                                }else
-                                {
-                                  header("Location: all-posts.php");
-                                }
-                          }
-                      		
-
+                    }  		
         	}
         ?>
 

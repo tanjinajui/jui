@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- All Comments Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -118,9 +118,11 @@
                             $i++;
                           }
                         ?>
-                        <a href="users.php?do=Manage">
-                          <?php echo $i; ?>
+                        <a href="users.php">
+                             <?php echo $i; ?>
                         </a>
+                          
+                        
                       </div>
                     </div>
                     <div class="col-auto">

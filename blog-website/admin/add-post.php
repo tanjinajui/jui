@@ -82,10 +82,10 @@
         		$post_title       = $_POST['post_title'];
         		$post_description = $_POST['post_description'];
         		$post_author  	  = $_SESSION['name'];
-                $post_category    = $_POST['post_category'];
-                $post_tags        = $_POST['post_tags'];
+            $post_category    = $_POST['post_category'];
+            $post_tags        = $_POST['post_tags'];
         		//image upload--
-        		$post_image 	  = $_FILES['image'];
+        		$post_image 	    = $_FILES['image'];
         		$post_image_name  = $_FILES['image']['name'];
         		$post_image_size  = $_FILES['image']['size'];
         		$post_image_temp  = $_FILES['image']['tmp_name'];
@@ -122,7 +122,7 @@
 		    		{
 		    			header("Location: all-posts.php");
 		    		}
-                //echo $query;
+                echo $query;
 		        }
         		
 

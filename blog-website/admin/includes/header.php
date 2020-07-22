@@ -28,6 +28,10 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+  <!-- Data Table Bootstrap cse -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
@@ -112,8 +116,11 @@
           </div>
         </div>
       </li>
-
-      <!-- Nav Item - User Menu -->
+      <?php
+      //Editor access 2 part
+      if ($_SESSION['user_role'] == 0) 
+      {?>
+        <!-- Nav Item - User Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-user-friends"></i>
@@ -124,7 +131,6 @@
             <h6 class="collapse-header">All Users:</h6>
             <a class="collapse-item" href="users.php?do=Manage">All Users</a>
             <a class="collapse-item" href="users.php?do=Add">Add New User</a>
-            
           </div>
         </div>
       </li>
@@ -144,6 +150,9 @@
           </div>
         </div>
       </li>
+     <?php }
+      ?>
+     
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
