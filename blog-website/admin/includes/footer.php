@@ -26,15 +26,19 @@
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+
   <!-- Data Table JS -->
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <!-- CKEditor Add -->
+  <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
@@ -43,6 +47,20 @@
     $(document).ready(function() {
     $('#tableSorting').DataTable();
     } );
+  </script>
+
+  <script>
+    // CKEDITOR.replace('description', {
+    //  // height : 300,
+    //   //filebrowserUploadUrl:"create-posts.php"
+
+    // });
+    var editor = CKEDITOR.replace('post_description',{
+      extraPlugins : 'filebrowser',
+      filebrowserBrowseUrl: 'create-posts.php',
+      filebrowserUploadMethod: "form",
+      filebrowserUploadUrl: "upload.php"
+    });
   </script>
 
 </body>

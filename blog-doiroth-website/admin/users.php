@@ -14,13 +14,27 @@
                 <div class="col-md-12">
                   <div class="card shadow mb-4">
                   <!-- Card Section Title-->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Author List</h6>
-                </div>
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Author List</h6>
+                      <div class="search-bar">
+                        <!-- Search Form Start -->
+                        <form action="" method="GET">
+                            <div class="form-group form-group float-right">
+                                <input type="text" name="search" placeholder="Search Here" autocomplete="off" class="form-input" required="required">
+                                <input type="submit" name="doSearch" value="Search" class="btn-main">
+                            </div>
+                        </form>
+                         
+                      <!-- Search Form End -->
+                      </div>
+                     
+                    </div>
+
                   <!-- Card Section Body-->
                 <div class="card-body">               
                   <!-- All User Table Start -->
-                <table id="tableSorting" class="table table-striped">
+                  <!--id="tableSorting" add search datatable-->
+                <table  class="table table-striped">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">Sl.</th>
@@ -33,9 +47,40 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+                  //search
+                      // if (isset($_GET['doSearch'])) {
+                      // $search_content = $_GET['search'];
+                      // $query = "SELECT * FROM users WHERE name LIKE '%$search_content%'";
+                      // //echo $query ;
+                      // $all_search_author = mysqli_query($connect, $query);
+                      // $totalAuthor = mysqli_num_rows($all_search_author);
+                      // if ($totalAuthor == 0 || $totalAuthor < 0) 
+                      // {
+                      //     echo '<div class="alert alert-warning">No Found In This Author</div>';
+                      // }
+                      // else
+                      // {
+                      //   $sql = "SELECT * FROM users WHERE name LIKE '%$search_content%' ORDER BY user_id  DESC";
+                      //   $all_blogs = mysqli_query($connect, $sql);
+                      //   while ( $row = mysqli_fetch_assoc($all_blogs) ) {
+                      //   $user_id      = $row['user_id'];
+                      //   $first_name   = $row['first_name'];
+                      //   $last_name    = $row['last_name'];
+                      //   $name         = $row['name'];
+                      //   $password     = $row['password'];
+                      //   $user_email   = $row['user_email'];
+                      //   $user_phone   = $row['user_phone'];
+                      //   $user_avater  = $row['user_avater'];
+                      //   $user_type    = $row['user_type'];
+                      //   $added_by     = $row['added_by'];
+                      //       }
+                      //       }
+                      //       } 
+                               ?>
               <?php
               //View All Users Codes Are Here---
-                $query = "SELECT * FROM users";
+                $query = "SELECT * FROM users WHERE user_type = 1 OR user_type = 2 OR user_type = 3 ORDER BY user_id DESC";
                 $select_all_user = mysqli_query($connect, $query);
                 $i= 0;
                 while ($row = mysqli_fetch_assoc($select_all_user)) {
@@ -67,7 +112,7 @@
                     else if ($user_type == 3) {
                       echo '<span class = "badge badge-primary">Contributor</span>';
                     }
-                    else{
+                    else if ($user_type == 4){
                       echo '<span class = "badge badge-danger">Suspended</span>';
                     }
                  ?>                 
@@ -296,7 +341,7 @@
                             echo '<div class = "alert alert-danger">' . $error . '</div>';
                           }
                           if (empty($formErrors)) {
-                            $name = $first_name . $last_name;
+                            $name = $first_name  . $last_name;
                             //Encrypted Password
                             $hassedPass = sha1($password);
 

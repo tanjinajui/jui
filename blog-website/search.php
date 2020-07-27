@@ -36,34 +36,29 @@
                 <!-- Blog Posts Start -->
                 <div class="col-md-8">
 
-
-
                     <?php
-                        if (isset($_POST['doSearch'])){
+                        if (isset($_POST['doSearch'])) {
                             $search_content = $_POST['search'];
-
-                            $sql = "SELECT * FROM posts WHERE post_title LIKE '%$search_content%'";
-
-                            $all_search_post = mysqli_query($connect, $sql);
+                            $query = "SELECT * FROM posts WHERE post_title LIKE '%$search_content%'";
+                            $all_search_post = mysqli_query($connect, $query);
                             $totalPost = mysqli_num_rows($all_search_post);
-
-                            if ( $totalPost == 0 || $totalPost < 0 )
+                            if ($totalPost == 0 || $totalPost < 0) 
                             {
-                                echo '<div class="alert alert-warning">No Post Found In Your Search Result</div>';
+                                echo '<div class="alert alert-warning">No Post Found In This Category</div>';
                             }
-                            else{
-                        
-                                $sql = "SELECT * FROM posts WHERE post_title LIKE '%$search_content%' ORDER BY post_title DESC";
+                            else
+                            {                   
+                                $sql = "SELECT * FROM posts WHERE post_title LIKE '%$search_content%' ORDER BY post_id DESC";
                                 $all_blogs = mysqli_query($connect, $sql);
                                 while ( $row = mysqli_fetch_assoc($all_blogs) ) {
-                                    $post_id            = $row['post_id'];
-                                    $post_title         = $row['post_title'];
-                                    $post_description   = $row['post_description'];
-                                    $post_author        = $row['post_author'];
-                                    $post_thumb         = $row['post_thumb'];
-                                    $post_category      = $row['post_category'];
-                                    $post_tags          = $row['post_tags'];
-                                    $post_date          = $row['post_date'];
+                                        $post_id            = $row['post_id'];
+                                        $post_title         = $row['post_title'];
+                                        $post_description   = $row['post_description'];
+                                        $post_author        = $row['post_author'];
+                                        $post_thumb         = $row['post_thumb'];
+                                        $post_category      = $row['post_category'];
+                                        $post_tags          = $row['post_tags'];
+                                        $post_date          = $row['post_date'];
                                     ?>
 
                                     <!-- Single Item Blog Post Start -->
@@ -71,7 +66,7 @@
                                         <!-- Blog Banner Image -->
                                         <div class="blog-banner">
                                             <a href="#">
-                                                <img src="admin/img/posts-thumbnail/<?php echo $post_thumb; ?>">
+                                                <img src="admin/img/posts_thumbnail/<?php echo $post_thumb; ?>">
                                                 <!-- Post Category Names -->
                                                 <div class="blog-category-name">
                                                     <?php
@@ -116,8 +111,8 @@
                                     </div>
                                     <!-- Single Item Blog Post End -->
 
-                        <?php  } } }
-                    ?>
+                            <?php    }    }}
+                            ?>
 
                 </div>
 

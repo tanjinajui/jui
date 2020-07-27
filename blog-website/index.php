@@ -42,14 +42,14 @@
                         $sql = "SELECT * FROM posts ORDER BY post_id DESC";
                         $all_blogs = mysqli_query($connect, $sql);
                         while ( $row = mysqli_fetch_assoc($all_blogs) ) {
-                            $post_id            = $row['post_id'];
-                            $post_title         = $row['post_title'];
-                            $post_description   = $row['post_description'];
-                            $post_author        = $row['post_author'];
-                            $post_thumb         = $row['post_thumb'];
-                            $post_category      = $row['post_category'];
-                            $post_tags          = $row['post_tags'];
-                            $post_date          = $row['post_date'];
+                                $post_id            = $row['post_id'];
+                                $post_title         = $row['post_title'];
+                                $post_description   = $row['post_description'];
+                                $post_author        = $row['post_author'];
+                                $post_thumb         = $row['post_thumb'];
+                                $post_category      = $row['post_category'];
+                                $post_tags          = $row['post_tags'];
+                                $post_date          = $row['post_date'];
                             ?>
 
                             <!-- Single Item Blog Post Start -->
@@ -57,10 +57,11 @@
                                 <!-- Blog Banner Image -->
                                 <div class="blog-banner">
                                     <a href="#">
-                                        <img src="admin/img/posts-thumbnail/<?php echo $post_thumb; ?>">
+                                        <img src="admin/img/posts_thumbnail/<?php echo $post_thumb; ?>">
                                         <!-- Post Category Names -->
                                         <div class="blog-category-name">
                                             <?php
+                                            //Category show
                                                 $sql = "SELECT * FROM categories WHERE cat_id = '$post_category'";
                                                 $the_category = mysqli_query($connect, $sql);
                                                 while( $row = mysqli_fetch_assoc($the_category) ){

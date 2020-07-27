@@ -141,7 +141,7 @@
                         <div class="contact-with-us">
                             <ul>
                                 <?php
-                                    $query = "SELECT * FROM contacts WHERE c_id = 1";
+                                    $query = "SELECT * FROM contacts WHERE id = 1";
                                     $all_contacts = mysqli_query($connect, $query);
                                     while( $row = mysqli_fetch_assoc($all_contacts) )
                                     {

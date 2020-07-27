@@ -76,7 +76,7 @@
                                 
                                 <!-- Blog Thumbnail Image Start -->
                                 <div class="blog-banner">
-                                    <img src="admin/img/posts-thumbnail/<?php echo $post_thumb; ?>">
+                                    <img src="admin/img/posts_thumbnail/<?php echo $post_thumb; ?>">
                                 </div>
                                 <!-- Blog Thumbnail Image End -->
 
@@ -101,8 +101,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <?php
-                                    $sql = "SELECT * FROM comments WHERE cmt_post_id = '$post_id' AND cmt_status = 1";
-                                    $read_commets = mysqli_query($connect, $sql);
+                                    $query = "SELECT * FROM comments WHERE cmt_post_id = '$post_id' AND cmt_status = 1 ";
+                                    $read_commets = mysqli_query($connect, $query);
                                     $total_comments = mysqli_num_rows($read_commets);
                                 ?>
                                 <h4>All Latest Comments (<?php echo $total_comments; ?>)</h4>
@@ -114,7 +114,8 @@
 
                         
                         <?php 
-                            $sql = "SELECT * FROM comments WHERE cmt_post_id = '$post_id' AND cmt_status = 1 ORDER BY cmt_id DESC ";
+                            $sql = "SELECT * FROM comments WHERE cmt_post_id = '$post_id' AND cmt_status = 1 ORDER BY cmt_id DESC";
+                            echo $sql;
                             $read_commets = mysqli_query($connect, $sql);
 
                             $result = mysqli_num_rows($read_commets);
@@ -124,13 +125,13 @@
                             <?php }
                             else{
                                 while( $row = mysqli_fetch_assoc($read_commets) ){
-                                    $cmt_id             = $row['cmt_id'];
-                                    $cmt_desc           = $row['cmt_desc'];
-                                    $cmt_post_id        = $row['cmt_post_id'];
-                                    $cmt_author         = $row['cmt_author'];
-                                    $cmt_author_email   = $row['cmt_author_email'];
-                                    $cmt_status         = $row['cmt_status'];
-                                    $cmt_date           = $row['cmt_date'];
+                                  $cmt_id           = $row['cmt_id'];
+                                  $cmt_description  = $row['cmt_description'];
+                                  $cmt_post_id      = $row['cmt_post_id'];
+                                  $cmt_author       = $row['cmt_author'];
+                                  $cmt_author_email = $row['cmt_author_email'];
+                                  $cmt_status       = $row['cmt_status'];
+                                  $cmt_date         = $row['cmt_date'];
                                     ?>
 
                                     <!-- Single Comment Post Start -->
@@ -150,7 +151,7 @@
                                                         <li class="post-by-hour"><?php echo $cmt_date; ?></li>
                                                     </ul>
                                                 </div>
-                                                <p><?php echo $cmt_desc; ?></p>
+                                                <p><?php echo $cmt_description; ?></p>
                                             </div>
                                             <!-- Comment Box End -->
                                         </div>
@@ -218,23 +219,18 @@
 
                 <?php
 
-                    if ( isset($_POST['addComment']) ){
-                        $username   = $_POST['username'];
-                        $email      = $_POST['email'];
-                        $comments   = $_POST['comments'];
-
-                        $sql = "INSERT INTO comments (cmt_desc, cmt_post_id, cmt_author, cmt_author_email, cmt_status, cmt_date) VALUES('$comments', '$post_id', '$username', '$email', 0, now() )";
-
-                        $add_comment = mysqli_query($connect, $sql);
-
-                        if ( $add_comment ){
-                            header("Location: single.php?id=$post_id");
-                        }
-                        else{
-                            die("Data not Inserted. " . mysqli_error($connect));
-                        }
-
-                        
+                    if (isset($_POST['addComment'])) {
+                     $username = $_POST['username'];
+                     $email = $_POST['email'];
+                     $comments = $_POST['comments'];
+                     $query = "INSERT INTO comments (cmt_description, cmt_post_id, cmt_author, cmt_author_email, cmt_status, cmt_date) VALUES ('$comments', '$post_id', '$username', '$email', 0, now())";
+                     $add_comment = mysqli_query($connect, $query);
+                     if ($add_comment) {
+                         header("Location: single.php?id=$post_id");
+                     }
+                     else{
+                        die("Data not Inserted. " . mysqli_error($connect));
+                     }
                     }
 
                 ?>

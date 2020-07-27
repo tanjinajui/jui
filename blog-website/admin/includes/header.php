@@ -135,10 +135,10 @@
         </div>
       </li>
 
-      <!-- Nav Item - Website Option Menu -->
+       <!-- Nav Item - Website Option Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings" aria-expanded="true" aria-controls="settings">
-          <i class="fas fa-user-friends"></i>
+          <i class="fas fa-fw fa-cog"></i>
           <span>Website Settings</span>
         </a>
         <div id="settings" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -146,10 +146,26 @@
             <h6 class="collapse-header">Website Settings:</h6>
             <a class="collapse-item" href="settings.php">Logo and Favicon</a>
             <a class="collapse-item" href="socialmedia.php">Socail Media</a>
+            <a class="collapse-item" href="contactinfo.php">Contact Information</a>
             
           </div>
         </div>
       </li>
+      
+      <!-- Nav Item - Website Option Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subscriber" aria-expanded="true" aria-controls="subscriber">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Marketing Tools</span>
+        </a>
+        <div id="subscriber" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Marketing Tools / Data:</h6>
+            <a class="collapse-item" href="subscriber.php">Subcriber List</a>
+          </div>
+        </div>
+      </li>
+      
      <?php }
       ?>
      

@@ -26,7 +26,7 @@
                                     <!-- Latest News Slider Image -->
                                     <div class="latest-news-image">
                                         <a href="single.php?id=<?php echo $post_id; ?>">
-                                            <img src="admin/img/posts-thumbnail/<?php echo $post_thumb; ?>">
+                                            <img src="admin/img/posts_thumbnail/<?php echo $post_thumb; ?>">
                                         </a>
                                     </div>
                                     <!-- Latest News Slider Heading -->
@@ -71,7 +71,7 @@
                         <div class="recent-post">
                             
                         <?php
-                            $sql = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 5";
+                            $sql = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 3";
                             $read_post = mysqli_query($connect, $sql);
                             while ( $row = mysqli_fetch_assoc($read_post) ) {
                                 $post_id            = $row['post_id'];
@@ -89,7 +89,7 @@
                                 <div class="row">
                                     <!-- Item Image -->
                                     <div class="col-md-4">
-                                        <img src="admin/img/posts-thumbnail/<?php echo $post_thumb; ?>">
+                                        <img src="admin/img/posts_thumbnail/<?php echo $post_thumb; ?>">
                                     </div>
                                     <!-- Item Tite -->
                                     <div class="col-md-8 no-padding">
@@ -175,7 +175,7 @@
                                 $latest_comments = mysqli_query($connect, $sql);
                                 while( $row = mysqli_fetch_assoc($latest_comments) ){
                                     $cmt_id             = $row['cmt_id'];
-                                    $cmt_desc           = $row['cmt_desc'];
+                                    $cmt_description    = $row['cmt_description'];
                                     $cmt_post_id        = $row['cmt_post_id'];
                                     $cmt_author         = $row['cmt_author'];
                                     $cmt_author_email   = $row['cmt_author_email'];
@@ -192,7 +192,7 @@
                                             </div>
                                             <!-- Comments Content -->
                                             <div class="col-md-8 no-padding">
-                                                <h5><?php echo $cmt_desc; ?></h5>
+                                                <h5><?php echo $cmt_description; ?></h5>
                                                 <!-- Comments Date -->
                                                 <ul>
                                                     <li>

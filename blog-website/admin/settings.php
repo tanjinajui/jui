@@ -56,18 +56,19 @@
                 </div>
             </div>
             <?php
-              if (isset($_POST['addSettings'])) {
-                $logo         = $_FILES['logo'];                
-                $logo_name    = $_FILES['logo'] ['name'];
+              if (isset($_POST['addSettings'])) {                
+                $logo         = $_FILES['logo'] ['name'];
                 $logo_tmp     = $_FILES['logo'] ['tmp_name'];
                 
-                $favicon      = $_FILES['favicon'];
-                $favicon_name = $_FILES['favicon'] ['name'];  
+                $favicon      = $_FILES['favicon'] ['name'];  
                 $favicon_tmp  = $_FILES['favicon'] ['tmp_name'];
-                $logoFile = rand(0,200000) . '_' . $logo_name;
-                $faviconFile = rand(0,200000) . '_' . $favicon_name;
+                if (!empty($logo) && !empty($favicon)) {
+                $random_number = rand(0, 1000000);
+                $random_number_two = rand(0, 1000000);
+                $logoFile = $random_number . '_' . $logo;
+                $faviconFile = $random_number_two . '_' . $favicon;
                 move_uploaded_file($logo_tmp, "img\\" . $logoFile);
-                move_uploaded_file($favicon_tmp, "img\\" . $favicon_name);
+                move_uploaded_file($favicon_tmp, "img\\" . $faviconFile);
                 $query = "UPDATE settings SET logo = '$logoFile', favicon = '$faviconFile' WHERE set_id = 1";
                 $all_media = mysqli_query($connect, $query);
                 if (!$all_media) {
@@ -76,6 +77,38 @@
                 else
                 {
                   header("Location: settings.php");
+                }
+                }
+                else if (!empty($logo) && empty($favicon)) {
+                $random_number = rand(0, 1000000);
+                
+                $logoFile = $random_number . '_' . $logo;
+                
+                move_uploaded_file($logo_tmp, "img\\" . $logoFile);
+                
+                $query = "UPDATE settings SET logo = '$logoFile' WHERE set_id = 1";
+                $all_media = mysqli_query($connect, $query);
+                if (!$all_media) {
+                  die("Operation Failed!");
+                }
+                else
+                {
+                  header("Location: settings.php");
+                }
+                }
+                else if(empty($logo) && !empty($favicon)) {
+                $random_number_two = rand(0, 1000000);
+                $faviconFile = $random_number_two . '_' . $favicon;
+                move_uploaded_file($favicon_tmp, "img\\" . $faviconFile);
+                $query = "UPDATE settings SET favicon = '$faviconFile' WHERE set_id = 1";
+                $all_media = mysqli_query($connect, $query);
+                if (!$all_media) {
+                  die("Operation Failed!");
+                }
+                else
+                {
+                  header("Location: settings.php");
+                }
                 }
               }
             ?>

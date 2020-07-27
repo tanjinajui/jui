@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <?php
+                      <?php
                             $sql = "SELECT * FROM settings";
                             $all_media = mysqli_query($connect, $sql);
                             while( $row = mysqli_fetch_assoc($all_media) )
@@ -89,29 +89,25 @@
                                 </a>
                             <?php }
                         ?>
-                      
                       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                       </button>
-
                       <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
-                          
-                            <?php
-                                $sql = "SELECT * FROM categories ORDER BY cat_name ASC";
-                                $nav_items = mysqli_query($connect, $sql);
-                                while ( $row = mysqli_fetch_assoc($nav_items) ) {
-                                    $cat_id     = $row['cat_id'];
-                                    $cat_name   = $row['cat_name'];
-                                    ?>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="category.php?id=<?php echo $cat_id; ?>"><?php echo $cat_name; ?></a>
-                                    </li>
-
-                                <?php }
-                            ?>
-                          
+                        <?php
+                        //$query = "SELECT * FROM categories ORDER BY cat_name DESC"; (DESCdile cat_name desending hobe)
+                            $query = "SELECT * FROM categories ORDER BY cat_name ASC";
+                            $nav_items = mysqli_query($connect, $query);
+                            while ($row = mysqli_fetch_assoc($nav_items)) {
+                                //print_r($row);
+                                $cat_id = $row['cat_id'];
+                                $cat_name = $row['cat_name'];
+                                ?>
+                              <li class="nav-item">
+                                <a class="nav-link" href="category.php?id=<?php echo $cat_id; ?>"><?php echo $cat_name; ?></a>
+                              </li>
+                           <?php }
+                        ?>
                         </ul>
                       </div>
                     </nav>
